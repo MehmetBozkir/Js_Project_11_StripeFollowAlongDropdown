@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2>Hi Guys</h2>
+    <nav class="top">
+      <div class="dropdownBackground">
+        <span class="arrow"></span>
+      </div>
+
+      <ul class="cool">
+        <li>
+          <a href="#">About Me</a>
+          <div class="dropdown dropdown1">
+            <div class="bio">
+              <img
+                src="https://avatars.githubusercontent.com/u/150898451?v=4"
+                width="200px"
+                height="200px"
+              />
+              <p>
+                I am Mehmet Salih Bozkir. I'm trying to become a front-end
+                developer
+              </p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">Blog</a>
+          <ul class="dropdown courses">
+            <li>
+              <span class="code">Html</span>
+              <a
+                href="https://medium.com/@mehmetsalihbozkir/what-is-html-and-basic-elements-e7c95b7fe655"
+                >What is HTML and Basic Elements</a
+              >
+            </li>
+            <li>
+              <span class="code">Css</span>
+              <a
+                href="https://medium.com/@mehmetsalihbozkir/css-guide-fundamental-concepts-selectors-7ef552ffb60b"
+                >CSS Guide: Fundamental Concepts & Selectors</a
+              >
+            </li>
+            <li>
+              <span class="code">Md</span>
+              <a
+                href="https://medium.com/@mehmetsalihbozkir/what-is-markdown-and-what-can-be-done-d6bfe7ca09b7"
+                >What is Markdown And What Can Be Done?</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Connects</a>
+          <ul class="dropdown dropdown3">
+            <li>
+              <a class="button" href="https://github.com/MehmetBozkir"
+                >Github</a
+              >
+            </li>
+            <li>
+              <a
+                class="button"
+                href="https://www.facebook.com/askmiobizdekalmamis/"
+                >Facebook</a
+              >
+            </li>
+            <li>
+              <a class="button" href="https://medium.com/@mehmetsalihbozkir"
+                >Medium</a
+              >
+            </li>
+            <li>
+              <a
+                class="button"
+                href="https://stackoverflow.com/users/23094164/mehmet-salih-bozk%c4%b1r"
+                >Stackoverflow</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <script>
+      const triggers = document.querySelectorAll(".cool > li");
+      const background = document.querySelector(".dropdownBackground");
+      const nav = document.querySelector(".top");
+
+      function handleEnter() {
+        this.classList.add("trigger-enter");
+        setTimeout(
+          () =>
+            this.classList.contains("trigger-enter") &&
+            this.classList.add("trigger-enter-active"),
+          150
+        );
+        background.classList.add("open");
+
+        const dropdown = this.querySelector(".dropdown");
+        const dropdownCoords = dropdown.getBoundingClientRect();
+        const navCoords = nav.getBoundingClientRect();
+
+        const coords = {
+          height: dropdownCoords.height,
+          width: dropdownCoords.width,
+          top: dropdownCoords.top - navCoords.top,
+          left: dropdownCoords.left - navCoords.left,
+        };
+
+        background.style.setProperty("width", `${coords.width}px`);
+        background.style.setProperty("height", `${coords.height}px`);
+        background.style.setProperty(
+          "transform",
+          `translate(${coords.left}px, ${coords.top}px)`
+        );
+      }
+
+      function handleLeave() {
+        this.classList.remove("trigger-enter", "trigger-enter-active");
+        background.classList.remove("open");
+      }
+
+      triggers.forEach((trigger) =>
+        trigger.addEventListener("mouseenter", handleEnter)
+      );
+      triggers.forEach((trigger) =>
+        trigger.addEventListener("mouseleave", handleLeave)
+      );
+    </script>
+  </body>
+</html>
